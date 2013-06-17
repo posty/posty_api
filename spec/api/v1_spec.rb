@@ -16,19 +16,19 @@ describe Posty::API do
       end
     end
     
-    describe "POST /api/v1/domains/test.de/users email='test@test.de' password='tester'" do
+    describe "POST /api/v1/domains/test.de/users name='test@test.de' password='tester'" do
       it "creates the user test@test.de" do
-        post "/api/v1/domains/test.de/users", {"email" => "test@test.de", "password" => "tester"}
+        post "/api/v1/domains/test.de/users", {"name" => "test", "password" => "tester"}
         last_response.status.should == 201
-        expect(JSON.parse(last_response.body)["virtual_user"]).to include("email" => "test@test.de")
+        expect(JSON.parse(last_response.body)["virtual_user"]).to include("name" => "test")
       end
     end
     
     describe "PUT /api/v1/domains/test.de/users/test name='posty@test.de'" do
-      it "changes the user email from test@test.de to posty@test.de" do
-        put "/api/v1/domains/test.de/users/test", {"email" => "posty@test.de"}
+      it "changes the user name from test@test.de to posty@test.de" do
+        put "/api/v1/domains/test.de/users/test", {"name" => "posty"}
         last_response.status.should == 200
-        expect(JSON.parse(last_response.body)["virtual_user"]).to include("email" => "posty@test.de")
+        expect(JSON.parse(last_response.body)["virtual_user"]).to include("name" => "posty")
       end
     end
   
@@ -36,7 +36,7 @@ describe Posty::API do
       it "delete the user posty@test.de" do
         delete "/api/v1/domains/test.de/users/posty"
         last_response.status.should == 200
-        expect(JSON.parse(last_response.body)["virtual_user"]).to include("email" => "posty@test.de")
+        expect(JSON.parse(last_response.body)["virtual_user"]).to include("name" => "posty")
       end
     end
   end
@@ -50,19 +50,27 @@ describe Posty::API do
       end
     end
     
+    describe "POST /api/v1/domains/test.de/users name='destination@test.de' password='tester'" do
+      it "creates the user destination@test.de" do
+        post "/api/v1/domains/test.de/users", {"name" => "destination", "password" => "tester"}
+        last_response.status.should == 201
+        expect(JSON.parse(last_response.body)["virtual_user"]).to include("name" => "destination")
+      end
+    end
+    
     describe "POST /api/v1/domains/test.de/aliases source='source@test.de' destination='destination@test.de'" do
       it "creates the alias source@test.de" do
-        post "/api/v1/domains/test.de/aliases", {"source" => "source@test.de", "destination" => "destination@test.de"}
+        post "/api/v1/domains/test.de/aliases", {"source" => "source", "destination" => "destination"}
         last_response.status.should == 201
-        expect(JSON.parse(last_response.body)["virtual_alias"]).to include("source" => "source@test.de")
+        expect(JSON.parse(last_response.body)["virtual_alias"]).to include("source" => "source")
       end
     end
     
     describe "PUT /api/v1/domains/test.de/aliases/source source='newsource@test.de'" do
       it "changes the alias source from source@test.de to newsource@test.de" do
-        put "/api/v1/domains/test.de/aliases/source", {"source" => "newsource@test.de"}
+        put "/api/v1/domains/test.de/aliases/source", {"source" => "newsource"}
         last_response.status.should == 200
-        expect(JSON.parse(last_response.body)["virtual_alias"]).to include("source" => "newsource@test.de")
+        expect(JSON.parse(last_response.body)["virtual_alias"]).to include("source" => "newsource")
       end
     end
   
@@ -70,7 +78,7 @@ describe Posty::API do
       it "delete the alias newsource@test.de" do
         delete "/api/v1/domains/test.de/aliases/newsource"
         last_response.status.should == 200
-        expect(JSON.parse(last_response.body)["virtual_alias"]).to include("source" => "newsource@test.de")
+        expect(JSON.parse(last_response.body)["virtual_alias"]).to include("source" => "newsource")
       end
     end
   end
