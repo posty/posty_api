@@ -24,6 +24,16 @@ module Posty
       success ? entity : validation_error(entity.errors)
     end
     
+    def get_summary(entitys = ['VirtualDomains', 'VirtualUsers', 'VirtualUserAliases', 'VirtualDomainAliases'])
+      summary = {}
+      
+      entitys.sort.each do |entity|
+        summary[entity] = entity.classify.constantize.all.count
+      end
+      
+      return summary
+    end
+    
     def current_domain
       @current_domain ||= ensure_entity('Domain') do
         VirtualDomain.find_by_name(params[:domain_name])

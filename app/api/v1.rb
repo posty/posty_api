@@ -2,6 +2,13 @@ module Posty
   class API_v1 < Grape::API
     version 'v1', :using => :path, :vendor => 'posty'
     
+    resource :summary do
+      desc "Returns a summary of all Resources"
+      get do
+        get_summary
+      end
+    end
+    
     resource :domains do
 
       desc "Returns all available domains"

@@ -39,14 +39,26 @@ Also available at [http://www.posty-soft.de/swagger/posty_api.html](http://www.p
   * **PUT** - http://API-URL/api/v1/domains/{domain}/users/{name} - change user {name}@{domain} (params: name, password)
   * **DELETE** -  http://API-URL/api/v1/domains/{domain}/users/{name} - delete user {name}@{domain}
 
-**Aliases:**
+**UserAliases:**
+
+  * **GET** - http://API-URL/api/v1/domains/{domain}/users/{user}/aliases - get all aliases for {user}
+  * **GET** - http://API-URL/api/v1/domains/{domain}/users/{user}/aliases/{name} - get the alias {name}@{domain}
+  * **POST** - http://API-URL/api/v1/domains/{domain}/users/{user}/aliases - create alias (params: name)
+  * **PUT** - http://API-URL/api/v1/domains/{domain}/users/{user}/aliases/{name} - change alias {name}@{domain} (params: name)
+  * **DELETE** - http://API-URL/api/v1/domains/{domain}/users/{user}/aliases/{name} - delete alias {name}@{domain}
+
+**DomainAliases:**
 
   * **GET** - http://API-URL/api/v1/domains/{domain}/aliases - get all aliases for {domain}
-  * **GET** - http://API-URL/api/v1/domains/{domain}/aliases/{name} - get the alias {name}@{domain}
-  * **POST** - http://API-URL/api/v1/domains/{domain}/aliases - create alias (params: source, destination)
-  * **PUT** - http://API-URL/api/v1/domains/{domain}/aliases/{name} - change alias {name}@{domain} (params: source, destination)
-  * **DELETE** - http://API-URL/api/v1/domains/{domain}/aliases/{name} - delete alias {name}@{domain}
+  * **GET** - http://API-URL/api/v1/domains/{domain}/aliases/{name} - get the alias @{name}
+  * **POST** - http://API-URL/api/v1/domains/{domain}/aliases - create alias (params: name)
+  * **PUT** - http://API-URL/api/v1/domains/{domain}/aliases/{name} - change alias @{name} (params: name)
+  * **DELETE** - http://API-URL/api/v1/domains/{domain}/aliases/{name} - delete alias @{name}
   
+**Summary:**
+
+  * **GET** - http://API-URL/api/v1/summary - get the number of existing domains, users, domain aliases and user aliases
+
 ## Test
 
 You can run the tests by going to project root and run:
