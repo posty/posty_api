@@ -41,7 +41,7 @@ module Posty
 
           desc "Create new user"
           post do
-            @user = VirtualUser.new(current_domain_id_hash.merge(attributes_for_keys [ :name, :password ]))
+            @user = VirtualUser.new(current_domain_id_hash.merge(attributes_for_keys [ :name, :password, :quota ]))
             @user.save ? @user : validation_error(@user.errors)
           end
       
@@ -54,7 +54,7 @@ module Posty
             desc "Update the specified user"
             put do
               return_on_success(current_user) do |user|
-                user.update_attributes(attributes_for_keys [ :name, :password ])
+                user.update_attributes(attributes_for_keys [ :name, :password, :quota ])
               end
             end
       
@@ -62,38 +62,71 @@ module Posty
             delete do
               current_user.destroy
             end
+            
+            resource '/aliases' do
+              desc "Returns all aliases for the specified user"
+              get do
+                current_user.virtual_user_aliases
+              end
+          
+              desc "Create new user alias"
+              post do
+                @alias = VirtualUserAlias.new(current_user_id_hash.merge(attributes_for_keys [ :name ]))
+                @alias.save ? @alias : validation_error(@alias.errors)
+              end
+          
+              segment '/:alias_name', requirements: {alias_name: /[a-z0-9\-\.]+/} do
+                desc "Returns the information to the specified user alias"
+                get do
+                  current_user_alias
+                end
+      
+      
+                desc "Update the specified user alias"
+                put do
+                  return_on_success(current_user_alias) do |aliass|
+                    aliass.update_attributes(attributes_for_keys [ :name ])
+                  end
+                end
+      
+                desc "Delete the specified user alias"
+                delete do
+                  current_user_alias.destroy
+                end
+              end                    
+            end
           end
         end
         
         resource '/aliases' do
           desc "Returns all aliases for the specified domain"
           get do
-            current_domain.virtual_aliases
+            current_domain.virtual_domain_aliases
           end
-          
-          desc "Create new alias"
+      
+          desc "Create new domain alias"
           post do
-            @alias = VirtualAlias.new(current_domain_id_hash.merge(attributes_for_keys [ :source, :destination ]))
+            @alias = VirtualDomainAlias.new(current_domain_id_hash.merge(attributes_for_keys [ :name ]))
             @alias.save ? @alias : validation_error(@alias.errors)
           end
-          
-          segment '/:alias_name', requirements: {alias_name: /[a-z0-9\-\.]+/} do
-            desc "Returns the information to the specified alias"
+      
+          segment '/:alias_name', requirements: {alias_name: /[a-z0-9\-]{2,}\.[a-z0-9]{2,}/} do
+            desc "Returns the information to the specified domain alias"
             get do
-              current_alias
+              current_domain_alias
             end
-      
-      
-            desc "Update the specified alias"
+  
+  
+            desc "Update the specified domain alias"
             put do
-              return_on_success(current_alias) do |aliass|
-                aliass.update_attributes(attributes_for_keys [ :source, :destination ])
+              return_on_success(current_domain_alias) do |aliass|
+                aliass.update_attributes(attributes_for_keys [ :name ])
               end
             end
-      
-            desc "Delete the specified alias"
+  
+            desc "Delete the specified domain alias"
             delete do
-              current_alias.destroy
+              current_domain_alias.destroy
             end
           end                    
         end

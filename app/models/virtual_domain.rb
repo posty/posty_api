@@ -1,6 +1,6 @@
 class VirtualDomain < ActiveRecord::Base
   has_many :virtual_users, :dependent => :destroy
-  has_many :virtual_aliases, :dependent => :destroy
+  has_many :virtual_domain_aliases, :dependent => :destroy
   
   validates :name, :uniqueness => true
   validates :name, :presence => true

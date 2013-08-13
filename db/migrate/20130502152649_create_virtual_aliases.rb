@@ -9,6 +9,6 @@ class CreateVirtualAliases < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :virtual_domains
+    drop_table :virtual_aliases
   end
 end

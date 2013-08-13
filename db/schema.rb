@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130614141749) do
+ActiveRecord::Schema.define(:version => 20130812184615) do
 
   create_table "virtual_domains", :force => true do |t|
     t.string   "name"
@@ -18,26 +18,36 @@ ActiveRecord::Schema.define(:version => 20130614141749) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "virtual_aliases", :force => true do |t|
+  create_table "virtual_domain_aliases", :force => true do |t|
     t.integer  "virtual_domain_id"
-    t.string   "source"
-    t.string   "destination"
+    t.string   "name"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.index ["virtual_domain_id"], :name => "index_virtual_aliases_on_virtual_domain_id"
-    t.foreign_key ["virtual_domain_id"], "virtual_domains", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "virtual_aliases_ibfk_1"
+    t.index ["virtual_domain_id"], :name => "index_virtual_domain_aliases_on_virtual_domain_id"
+    t.foreign_key ["virtual_domain_id"], "virtual_domains", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "virtual_domain_aliases_ibfk_1"
   end
 
-  create_view "aliases_view", "select concat(`virtual_aliases`.`source`,'@',`virtual_domains`.`name`) AS `source`,concat(`virtual_aliases`.`destination`,'@',`virtual_domains`.`name`) AS `destination` from `virtual_aliases` join `virtual_domains` where (`virtual_aliases`.`virtual_domain_id` = `virtual_domains`.`id`)", :force => true
+  create_view "domain_aliases_view", "select concat('@',`virtual_domain_aliases`.`name`) AS `source`,concat('@',`virtual_domains`.`name`) AS `destination` from `virtual_domain_aliases` join `virtual_domains` where (`virtual_domain_aliases`.`virtual_domain_id` = `virtual_domains`.`id`)", :force => true
   create_table "virtual_users", :force => true do |t|
     t.integer  "virtual_domain_id"
     t.string   "password"
     t.string   "name"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
+    t.integer  "quota",             :limit => 8, :default => 0
     t.index ["virtual_domain_id"], :name => "index_virtual_users_on_virtual_domain_id"
     t.foreign_key ["virtual_domain_id"], "virtual_domains", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "virtual_users_ibfk_1"
   end
 
+  create_table "virtual_user_aliases", :force => true do |t|
+    t.integer  "virtual_user_id"
+    t.string   "name"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.index ["virtual_user_id"], :name => "index_virtual_user_aliases_on_virtual_user_id"
+    t.foreign_key ["virtual_user_id"], "virtual_users", ["id"], :on_update => :restrict, :on_delete => :restrict, :name => "virtual_user_aliases_ibfk_1"
+  end
+
+  create_view "user_aliases_view", "select concat(`virtual_user_aliases`.`name`,'@',`virtual_domains`.`name`) AS `source`,concat(`virtual_users`.`name`,'@',`virtual_domains`.`name`) AS `destination` from `virtual_user_aliases` join `virtual_users` join `virtual_domains` where ((`virtual_users`.`virtual_domain_id` = `virtual_domains`.`id`) and (`virtual_user_aliases`.`virtual_user_id` = `virtual_users`.`id`))", :force => true
   create_view "users_view", "select concat(`virtual_users`.`name`,'@',`virtual_domains`.`name`) AS `email`,`virtual_users`.`password` AS `password` from `virtual_users` join `virtual_domains` where (`virtual_users`.`virtual_domain_id` = `virtual_domains`.`id`)", :force => true
 end

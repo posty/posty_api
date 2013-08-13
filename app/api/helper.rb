@@ -36,14 +36,24 @@ module Posty
       end
     end
     
-    def current_alias
-      ensure_entity('Alias') do
-        current_domain.virtual_aliases.find_by_source(params[:alias_name])
+    def current_user_alias
+      ensure_entity('UserAlias') do
+        current_user.virtual_user_aliases.find_by_name(params[:alias_name])
+      end
+    end
+
+    def current_domain_alias
+      ensure_entity('DomainAlias') do
+        current_domain.virtual_domain_aliases.find_by_name(params[:alias_name])
       end
     end
     
     def current_domain_id_hash
       {"virtual_domain_id" => current_domain.id}
+    end
+    
+    def current_user_id_hash
+      {"virtual_user_id" => current_user.id}
     end
     
     def complete_email_address(user, domain)

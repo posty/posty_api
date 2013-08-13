@@ -18,7 +18,7 @@ describe Posty::API do
     
     describe "POST /api/v1/domains/test.de/users name='test@test.de' password='tester'" do
       it "creates the user test@test.de" do
-        post "/api/v1/domains/test.de/users", {"name" => "test", "password" => "tester"}
+        post "/api/v1/domains/test.de/users", {"name" => "test", "password" => "tester", "quota" => 1000000}
         last_response.status.should == 201
         expect(JSON.parse(last_response.body)["virtual_user"]).to include("name" => "test")
       end
@@ -41,44 +41,78 @@ describe Posty::API do
     end
   end
   
-  shared_examples "aliases" do
+  shared_examples "domain_aliases" do
     describe "GET /api/v1/domains/test.de/aliases" do
-      it "returns all aliases for the domain test.de" do
+      it "returns all domain aliases for the domain test.de" do
         get "/api/v1/domains/test.de/aliases"
         last_response.status.should == 200
         expect(JSON.parse(last_response.body)).to eq([])
       end
     end
     
-    describe "POST /api/v1/domains/test.de/users name='destination@test.de' password='tester'" do
+    describe "POST /api/v1/domains/test.de/aliases name='tester.de'" do
+      it "creates the domain alias tester.de" do
+        post "/api/v1/domains/test.de/aliases", {"name" => "tester.de"}
+        last_response.status.should == 201
+        expect(JSON.parse(last_response.body)["virtual_domain_alias"]).to include("name" => "tester.de")
+      end
+    end
+    
+    describe "PUT /api/v1/domains/test.de/aliases/tester.de name='tester2.de'" do
+      it "changes the domain alias name from tester.de to tester2.de" do
+        put "/api/v1/domains/test.de/aliases/tester.de", {"name" => "tester2.de"}
+        last_response.status.should == 200
+        expect(JSON.parse(last_response.body)["virtual_domain_alias"]).to include("name" => "tester2.de")
+      end
+    end
+  
+    describe "DELETE /api/v1/domains/test.de/aliases/tester2.de" do
+      it "delete the domain alias tester2.de" do
+        delete "/api/v1/domains/test.de/aliases/tester2.de"
+        last_response.status.should == 200
+        expect(JSON.parse(last_response.body)["virtual_domain_alias"]).to include("name" => "tester2.de")
+      end
+    end
+  end
+
+  shared_examples "user_aliases" do
+    describe "POST /api/v1/domains/test.de/users name='destination@test.de' password='tester' quota=10000" do
       it "creates the user destination@test.de" do
-        post "/api/v1/domains/test.de/users", {"name" => "destination", "password" => "tester"}
+        post "/api/v1/domains/test.de/users", {"name" => "destination", "password" => "tester", "quota" => 10000}
         last_response.status.should == 201
         expect(JSON.parse(last_response.body)["virtual_user"]).to include("name" => "destination")
       end
     end
-    
-    describe "POST /api/v1/domains/test.de/aliases source='source@test.de' destination='destination@test.de'" do
-      it "creates the alias source@test.de" do
-        post "/api/v1/domains/test.de/aliases", {"source" => "source", "destination" => "destination"}
-        last_response.status.should == 201
-        expect(JSON.parse(last_response.body)["virtual_alias"]).to include("source" => "source")
+
+    describe "GET /api/v1/domains/test.de/users/destination/aliases" do
+      it "returns all aliases for the user destination@test.de" do
+        get "/api/v1/domains/test.de/users/destination/aliases"
+        last_response.status.should == 200
+        expect(JSON.parse(last_response.body)).to eq([])
       end
     end
     
-    describe "PUT /api/v1/domains/test.de/aliases/source source='newsource@test.de'" do
-      it "changes the alias source from source@test.de to newsource@test.de" do
-        put "/api/v1/domains/test.de/aliases/source", {"source" => "newsource"}
+    describe "POST /api/v1/domains/test.de/users/destination/aliases name='newalias'" do
+      it "creates the user alias newalias@test.de" do
+        post "/api/v1/domains/test.de/users/destination/aliases", {"name" => "newalias"}
+        last_response.status.should == 201
+        expect(JSON.parse(last_response.body)["virtual_user_alias"]).to include("name" => "newalias")
+      end
+    end
+    
+    describe "PUT /api/v1/domains/test.de/users/destination/aliases/newalias name='newalias'" do
+      it "changes the user alias name from newalias@test.de to newalias2@test.de" do
+        put "/api/v1/domains/test.de/users/destination/aliases/newalias", {"name" => "newalias2"}
         last_response.status.should == 200
-        expect(JSON.parse(last_response.body)["virtual_alias"]).to include("source" => "newsource")
+        expect(JSON.parse(last_response.body)["virtual_user_alias"]).to include("name" => "newalias2")
       end
     end
   
-    describe "DELETE /api/v1/domains/test.de/users/newsource" do
-      it "delete the alias newsource@test.de" do
-        delete "/api/v1/domains/test.de/aliases/newsource"
+    describe "DELETE /api/v1/domains/test.de/users/destination/aliases/newalias2" do
+      it "delete the user alias newalias2@test.de" do
+        delete "/api/v1/domains/test.de/users/destination/aliases/newalias2"
         last_response.status.should == 200
-        expect(JSON.parse(last_response.body)["virtual_alias"]).to include("source" => "newsource")
+        expect(JSON.parse(last_response.body)["virtual_user_alias"]).to include("name" => "newalias2")
       end
     end
   end
@@ -101,7 +135,8 @@ describe Posty::API do
     end
     
     include_examples "users"
-    include_examples "aliases"
+    include_examples "domain_aliases"
+    include_examples "user_aliases"
 
     describe "POST /api/v1/domains name='test.de'" do
       it "creates the domain test.de" do
