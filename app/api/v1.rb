@@ -3,7 +3,7 @@ module Posty
     version 'v1', :using => :path, :vendor => 'posty'
     before { authenticate! }
     
-    resource :api_key do
+    resource :api_keys do
       desc "Creates a new API Key"
       post do
         ApiKey.create

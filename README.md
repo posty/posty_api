@@ -58,6 +58,21 @@ Also available at [http://www.posty-soft.de/swagger/posty_api.html](http://www.p
 **Summary:**
 
   * **GET** - http://API-URL/api/v1/summary - get the number of existing domains, users, domain aliases and user aliases
+  
+**Transports:**
+
+ * **GET** - http://API-URL/api/v1/transports - get all transports
+ * **GET** - http://API-URL/api/v1/transports/{domain} - get the transport for {domain}
+ * **POST** - http://API-URL/api/v1/transports - create alias (params: name, destination)
+ * **PUT** - http://API-URL/api/v1/transports/{domain} - change transport {domain} (params: name, destination)
+ * **DELETE** - http://API-URL/api/v1/transports/{domain} - delete transport {domain}
+ 
+**ApiKeys:**
+
+ * **POST** - http://API-URL/api/v1/api_keys - create access_token
+ * **PUT** - http://API-URL/api/v1/api_keys/expire/{token} - expire access_token
+ * **PUT** - http://API-URL/api/v1/api_keys/disable/{token} - disable access_token
+ * **DELETE** - http://API-URL/api/v1/api_keys/{token} - delete access_token
 
 ## Test
 
