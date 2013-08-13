@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130812184615) do
+ActiveRecord::Schema.define(:version => 20130813181249) do
+
+  create_table "api_keys", :force => true do |t|
+    t.string   "access_token",                   :null => false
+    t.boolean  "active",       :default => true, :null => false
+    t.datetime "expires_at"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
 
   create_table "virtual_domains", :force => true do |t|
     t.string   "name"
@@ -50,4 +58,11 @@ ActiveRecord::Schema.define(:version => 20130812184615) do
 
   create_view "user_aliases_view", "select concat(`virtual_user_aliases`.`name`,'@',`virtual_domains`.`name`) AS `source`,concat(`virtual_users`.`name`,'@',`virtual_domains`.`name`) AS `destination` from `virtual_user_aliases` join `virtual_users` join `virtual_domains` where ((`virtual_users`.`virtual_domain_id` = `virtual_domains`.`id`) and (`virtual_user_aliases`.`virtual_user_id` = `virtual_users`.`id`))", :force => true
   create_view "users_view", "select concat(`virtual_users`.`name`,'@',`virtual_domains`.`name`) AS `email`,`virtual_users`.`password` AS `password` from `virtual_users` join `virtual_domains` where (`virtual_users`.`virtual_domain_id` = `virtual_domains`.`id`)", :force => true
+  create_table "virtual_transports", :force => true do |t|
+    t.string   "name"
+    t.string   "destination"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
 end

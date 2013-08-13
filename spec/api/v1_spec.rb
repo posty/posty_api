@@ -6,6 +6,40 @@ describe Posty::API do
   def app
     Posty::API
   end
+  
+  shared_examples "transports" do
+    describe "GET /api/v1/transports" do
+      it "returns all transports" do
+        get "/api/v1/transports"
+        last_response.status.should == 200
+        expect(JSON.parse(last_response.body)).to eq([])
+      end
+    end
+    
+    describe "POST /api/v1/transports name='test.de' destination='smtp:[localhost]'" do
+      it "creates the transport test.de" do
+        post "/api/v1/transports", {"name" => "test.de", "destination" => "smtp:[localhost]"}
+        last_response.status.should == 201
+        expect(JSON.parse(last_response.body)["virtual_transport"]).to include("name" => "test.de")
+      end
+    end
+    
+    describe "PUT /api/v1/transports/test.de name='example.com'" do
+      it "changes the transport name from test.de to example.com" do
+        put "/api/v1/transports/test.de", {"name" => "example.com"}
+        last_response.status.should == 200
+        expect(JSON.parse(last_response.body)["virtual_transport"]).to include("name" => "example.com")
+      end
+    end
+  
+    describe "DELETE /api/v1/transports/example.com" do
+      it "delete the transport example.com" do
+        delete "/api/v1/transports/example.com"
+        last_response.status.should == 200
+        expect(JSON.parse(last_response.body)["virtual_transport"]).to include("name" => "example.com")
+      end
+    end
+  end    
 
   shared_examples "users" do
     describe "GET /api/v1/domains/test.de/users" do
@@ -16,7 +50,7 @@ describe Posty::API do
       end
     end
     
-    describe "POST /api/v1/domains/test.de/users name='test@test.de' password='tester'" do
+    describe "POST /api/v1/domains/test.de/users name='test@test.de' password='tester', quota='1000000'" do
       it "creates the user test@test.de" do
         post "/api/v1/domains/test.de/users", {"name" => "test", "password" => "tester", "quota" => 1000000}
         last_response.status.should == 201

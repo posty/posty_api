@@ -34,6 +34,14 @@ module Posty
       return summary
     end
     
+    def authenticate!
+      error!('Unauthorized. Invalid or expired token.', 401) unless current_session
+    end
+ 
+    def current_session
+      @current_session ||= ApiKey.find_by_access_token_and_active(params[:access_token], true)
+    end
+        
     def current_domain
       @current_domain ||= ensure_entity('Domain') do
         VirtualDomain.find_by_name(params[:domain_name])
@@ -43,6 +51,12 @@ module Posty
     def current_user
       ensure_entity('User') do
         current_domain.virtual_users.find_by_name(params[:user_name])
+      end
+    end
+    
+    def current_transport
+      ensure_entity('Transport') do
+        VirtualTransport.find_by_source(params[:transport_name])
       end
     end
     

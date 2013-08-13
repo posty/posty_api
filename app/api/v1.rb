@@ -1,11 +1,63 @@
 module Posty
   class API_v1 < Grape::API
     version 'v1', :using => :path, :vendor => 'posty'
+    before { authenticate! }
+    
+    resource :api_key do
+      desc "Creates a new API Key"
+      post do
+        ApiKey.create
+      end
+      
+      put '/expire/:token' do
+        ApiKey.find_by_access_token(params[:token]).expire
+      end
+      
+      put '/disable/:token' do
+        ApiKey.find_by_access_token(params[:token]).disable
+      end
+      
+      delete '/:token' do
+        ApiKey.find_by_access_token(params[:token]).destroy
+      end
+    end
     
     resource :summary do
       desc "Returns a summary of all Resources"
       get do
         get_summary
+      end
+    end
+    
+    resource :transports do
+      desc "Returns all available transports"
+      get do
+        VirtualTransport.all
+      end
+      
+      desc "Create new transport"
+      post do
+        @transport = VirtualTransport.net(attributes_for_keys [ :name, :destination ])
+        @transport.save ? @transport : validation_error(@transport.errors)
+      end
+      
+      segment '/:transport_name', requirements: {transport_name: /[a-z0-9\-]{2,}\.[a-z0-9]{2,}/} do
+        desc "Returns the information to the specified transport"
+        get do
+          current_transport
+        end
+        
+        desc "Update the specified transport"
+        put do
+          return_on_success(current_transport) do |transport|
+            transport.update_attributes(attributes_for_keys [ :name, :destination ])
+          end
+        end
+        
+        desc "Delete the specified transport"
+        delete do
+          current_transport.destroy
+        end
       end
     end
     
