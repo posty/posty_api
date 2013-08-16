@@ -1,7 +1,7 @@
 module Posty
   class API_v1 < Grape::API
     version 'v1', :using => :path, :vendor => 'posty'
-    #before { authenticate! }
+    before { authenticate! }
     
     resource :api_keys do
       desc "Returns all available API Keys"
