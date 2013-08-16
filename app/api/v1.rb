@@ -4,21 +4,36 @@ module Posty
     #before { authenticate! }
     
     resource :api_keys do
+      desc "Returns all available API Keys"
+      get do
+        ApiKey.all
+      end
+      
       desc "Creates a new API Key"
       post do
         ApiKey.create
       end
       
-      put '/expire/:token' do
-        ApiKey.find_by_access_token(params[:token]).expire
-      end
+      segment '/:token' do
+        desc "Returns the information to the specified api_key"
+        get do
+          ApiKey.find_by_access_token(params[:token])
+        end
+        
+        desc "Expire the given token"
+        put '/expire' do
+          ApiKey.find_by_access_token(params[:token]).expire
+        end
       
-      put '/disable/:token' do
-        ApiKey.find_by_access_token(params[:token]).disable
-      end
+        desc "Disable the given token"
+        put '/disable' do
+          ApiKey.find_by_access_token(params[:token]).disable
+        end
       
-      delete '/:token' do
-        ApiKey.find_by_access_token(params[:token]).destroy
+        desc "Delete the given token"
+        delete do
+          ApiKey.find_by_access_token(params[:token]).destroy
+        end
       end
     end
     

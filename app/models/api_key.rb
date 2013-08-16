@@ -6,6 +6,14 @@ class ApiKey < ActiveRecord::Base
   def expired?
     DateTime.now >= self.expires_at
   end
+
+  def expire
+    self.expires_at = DateTime.now
+  end
+  
+  def disable
+    self.active = false
+  end
  
   private
   	def generate_access_token
@@ -16,13 +24,5 @@ class ApiKey < ActiveRecord::Base
  
     def set_expiration
       self.expires_at = DateTime.now+30
-    end
-    
-    def expire
-      self.expires_at = DateTime.now
-    end
-    
-    def disable
-      self.active = false
-    end
+    end    
 end
