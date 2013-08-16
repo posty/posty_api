@@ -14,7 +14,7 @@ module Posty
         ApiKey.create
       end
       
-      segment '/:access_token' do
+      segment '/:api_key' do
         desc "Returns the information to the specified api_key"
         get do
           current_api_key

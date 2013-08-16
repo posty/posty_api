@@ -39,8 +39,8 @@ module Posty
     end
  
     def current_session
-      access_token = params[:access_token] || env['HTTP_ACCESS_TOKEN']
-      @current_session ||= ApiKey.active.where(access_token: access_token).first
+      auth_token = params[:auth_token] || env['HTTP_AUTH_TOKEN']
+      @current_session ||= ApiKey.active.where(access_token: auth_token).first
     end
         
     def current_domain
@@ -83,7 +83,7 @@ module Posty
     
     def current_api_key
       ensure_entity('ApiKey') do
-        ApiKey.find_by_access_token(params[:access_token])
+        ApiKey.find_by_access_token(params[:api_key])
       end
     end
 

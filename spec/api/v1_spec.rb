@@ -7,6 +7,12 @@ describe Posty::API do
     Posty::API
   end
   
+  api_key = ApiKey.active.first || ApiKey.create
+  
+  before(:each) do
+    header 'AUTH_TOKEN', ApiKey.active.first.access_token
+  end
+  
   shared_examples "transports" do
     describe "GET /api/v1/transports" do
       it "returns all transports" do
@@ -171,6 +177,7 @@ describe Posty::API do
     include_examples "users"
     include_examples "domain_aliases"
     include_examples "user_aliases"
+    include_examples "transports"
 
     describe "POST /api/v1/domains name='test.de'" do
       it "creates the domain test.de" do
