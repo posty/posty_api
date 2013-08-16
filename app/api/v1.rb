@@ -1,7 +1,7 @@
 module Posty
   class API_v1 < Grape::API
     version 'v1', :using => :path, :vendor => 'posty'
-    before { authenticate! }
+    #before { authenticate! }
     
     resource :api_keys do
       desc "Creates a new API Key"
@@ -37,7 +37,7 @@ module Posty
       
       desc "Create new transport"
       post do
-        @transport = VirtualTransport.net(attributes_for_keys [ :name, :destination ])
+        @transport = VirtualTransport.new(attributes_for_keys [ :name, :destination ])
         @transport.save ? @transport : validation_error(@transport.errors)
       end
       

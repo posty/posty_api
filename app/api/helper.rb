@@ -56,7 +56,7 @@ module Posty
     
     def current_transport
       ensure_entity('Transport') do
-        VirtualTransport.find_by_source(params[:transport_name])
+        VirtualTransport.find_by_name(params[:transport_name])
       end
     end
     
