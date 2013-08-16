@@ -2,17 +2,19 @@ class ApiKey < ActiveRecord::Base
   attr_accessible :access_token, :expires_at, :active, :application
   before_create :generate_access_token
   before_create :set_expiration
+
+  scope :active, lambda {where('expires_at > ? AND active = 1', Time.now)}
  
   def expired?
     DateTime.now >= self.expires_at
   end
-
+  
   def expire
-    self.expires_at = DateTime.now
+    self.update_attributes(:expires_at => DateTime.now)
   end
   
   def disable
-    self.active = false
+    self.update_attributes(:active => false)
   end
  
   private

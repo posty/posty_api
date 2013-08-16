@@ -14,25 +14,25 @@ module Posty
         ApiKey.create
       end
       
-      segment '/:token' do
+      segment '/:access_token' do
         desc "Returns the information to the specified api_key"
         get do
-          ApiKey.find_by_access_token(params[:token])
+          current_api_key
         end
         
         desc "Expire the given token"
         put '/expire' do
-          ApiKey.find_by_access_token(params[:token]).expire
+          current_api_key.expire
         end
       
         desc "Disable the given token"
         put '/disable' do
-          ApiKey.find_by_access_token(params[:token]).disable
+          current_api_key.disable
         end
       
         desc "Delete the given token"
         delete do
-          ApiKey.find_by_access_token(params[:token]).destroy
+          current_api_key.destroy
         end
       end
     end

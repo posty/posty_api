@@ -39,7 +39,8 @@ module Posty
     end
  
     def current_session
-      @current_session ||= ApiKey.find_by_access_token_and_active(params[:access_token], true)
+      access_token = params[:access_token] || env['HTTP_ACCESS_TOKEN']
+      @current_session ||= ApiKey.active.where(access_token: access_token).first
     end
         
     def current_domain
@@ -80,6 +81,12 @@ module Posty
       {"virtual_user_id" => current_user.id}
     end
     
+    def current_api_key
+      ensure_entity('ApiKey') do
+        ApiKey.find_by_access_token(params[:access_token])
+      end
+    end
+
     def complete_email_address(user, domain)
       user + "@" + domain
     end
