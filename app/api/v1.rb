@@ -20,14 +20,11 @@ module Posty
           current_api_key
         end
         
-        desc "Expire the given token"
-        put '/expire' do
-          current_api_key.expire
-        end
-      
-        desc "Disable the given token"
-        put '/disable' do
-          current_api_key.disable
+        desc "Update the specified api_key"
+        put do
+          return_on_success(current_api_key) do |api_key|
+            api_key.update_attributes(attributes_for_keys [ :access_token, :active, :expires_at ])
+          end
         end
       
         desc "Delete the given token"
