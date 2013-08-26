@@ -4,6 +4,6 @@ class CreateUserAliasesView < ActiveRecord::Migration
   end
 
   def self.down
-    drop_view 
+    drop_view :user_aliases_view
   end
 end
