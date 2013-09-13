@@ -1,0 +1,5 @@
+user = mysql_user
+password = mysql_password
+hosts = 127.0.0.1
+dbname = database_name
+query = SELECT 1 FROM virtual_domains WHERE virtual_domains.name='%s'

@@ -35,8 +35,8 @@ Also available at [http://www.posty-soft.de/swagger/posty_api.html](http://www.p
 
   * **GET** - http://API-URL/api/v1/domains/{domain}/users - get all users for {domain}
   * **GET** - http://API-URL/api/v1/domains/{domain}/users/{name} - get the user {name}@{domain}
-  * **POST** - http://API-URL/api/v1/domains/{domain}/users - create user (params: name, password)
-  * **PUT** - http://API-URL/api/v1/domains/{domain}/users/{name} - change user {name}@{domain} (params: name, password)
+  * **POST** - http://API-URL/api/v1/domains/{domain}/users - create user (params: name, password, quota)
+  * **PUT** - http://API-URL/api/v1/domains/{domain}/users/{name} - change user {name}@{domain} (params: name, password, quota)
   * **DELETE** -  http://API-URL/api/v1/domains/{domain}/users/{name} - delete user {name}@{domain}
 
 **UserAliases:**

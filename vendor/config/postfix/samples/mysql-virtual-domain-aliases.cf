@@ -1,0 +1,5 @@
+user = mysql_user
+password = mysql_password
+hosts = 127.0.0.1
+dbname = database_name
+query = SELECT destination FROM domain_aliases_view WHERE source='%s'
