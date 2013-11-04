@@ -13,10 +13,13 @@ Tested with ruby 1.9.3.
 1.  Download the source either using git or from the GitHub page as archive.
 2.  Extract the archive
 3.  Change directory to the extracted folder
-4.  Place a valid database.yml in the folder config
+4.  Move config/database_default.yml to config/database.yml and change it to your needs.
 5.  Run ``bundle install``
 6.  Run ``rake db:migrate``
-7.  Start the application e.g. with ``rackup``
+7.  Run ``rake api_key:generate``
+8.  Start the application e.g. with ``rackup``
+
+Notice: Check your RACK_ENV if any problems occur.
 
 ## Usage
 
