@@ -4,6 +4,13 @@ task :environment do
   
 end
 
+namespace :api_key do
+  desc "Creates a new api key"
+  task :generate => :environment do
+    ApiKey.create
+  end
+end
+
 namespace :db do
   desc "Migrate the database through scripts in db/migrate"
   task(:migrate => :environment) do

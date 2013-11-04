@@ -18,13 +18,13 @@ class ApiKey < ActiveRecord::Base
   end
  
   private
-  	def generate_access_token
-  		begin
-  			self.access_token = SecureRandom.hex
-  		end while self.class.exists?(access_token: access_token)
-  	end
- 
-    def set_expiration
-      self.expires_at = DateTime.now+30
-    end    
+	def generate_access_token
+		begin
+			self.access_token = SecureRandom.hex
+		end while self.class.exists?(access_token: access_token)
+	end
+
+  def set_expiration
+    self.expires_at = DateTime.now + 5.years
+  end
 end

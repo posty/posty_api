@@ -25,10 +25,10 @@ module Posty
     end
     
     def get_summary(entitys = ['VirtualDomains', 'VirtualUsers', 'VirtualUserAliases', 'VirtualDomainAliases'])
-      summary = {}
+      summary = [{}]
       
       entitys.sort.each do |entity|
-        summary[entity] = entity.classify.constantize.all.count
+        summary.first[entity] = entity.classify.constantize.all.count
       end
       
       return summary
