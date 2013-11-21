@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
+ruby "1.9.3"
 
 group :default do
   gem 'rack', "~> 1.5.2"
