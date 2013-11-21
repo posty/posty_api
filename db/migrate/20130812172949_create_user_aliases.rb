@@ -6,8 +6,8 @@ class CreateUserAliases < ActiveRecord::Migration
       t.timestamps
     end
     
+    drop_view  :aliases_view
     drop_table :virtual_aliases
-    drop_view :aliases_view
   end
 
   def self.down
