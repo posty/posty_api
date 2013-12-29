@@ -1,4 +1,5 @@
 require 'digest/md5'
+require 'folder'
 
 class VirtualUser < ActiveRecord::Base
   include Folder

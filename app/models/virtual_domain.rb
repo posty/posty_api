@@ -1,3 +1,5 @@
+require 'folder'
+
 class VirtualDomain < ActiveRecord::Base
   include Folder
 
