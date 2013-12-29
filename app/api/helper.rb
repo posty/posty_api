@@ -24,11 +24,11 @@ module Posty
       success ? entity : validation_error(entity.errors)
     end
     
-    def get_summary(entitys = ['VirtualDomains', 'VirtualUsers', 'VirtualUserAliases', 'VirtualDomainAliases'])
+    def get_summary(entitys = {'VirtualDomains' => 'Domains', 'VirtualUsers' => 'Users', 'VirtualUserAliases' => 'User Aliases', 'VirtualDomainAliases' => 'Domain Aliases'})
       summary = [{}]
       
-      entitys.sort.each do |entity|
-        summary.first[entity] = entity.classify.constantize.all.count
+      entitys.sort.each do |clazz, name|
+        summary.first[name] = clazz.classify.constantize.all.count
       end
       
       return summary

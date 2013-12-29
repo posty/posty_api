@@ -5,7 +5,7 @@ class VirtualDomainAlias < ActiveRecord::Base
   validates :name, :presence => true
   validates :name, :format => { :with => /^[a-z0-9\-]{2,}\.[a-z0-9]{2,}$/, :message => "Please use a valid domain name" }
   validates :virtual_domain_id, :presence => true
-#  validate :name_unique
+  validate :name_unique
   
   def name_unique
     if VirtualDomain.where("name = ?", name).exists?
