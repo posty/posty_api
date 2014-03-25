@@ -74,7 +74,7 @@ Also available at [http://www.posty-soft.de/swagger/posty_api.html](http://www.p
 
  * **GET** - http://API-URL/api/v1/api_keys - get all api keys
  * **GET** - http://API-URL/api/v1/api_keys/{token} - get the api_key for {token}
- * **POST** - http://API-URL/api/v1/api_keys - create access_token (params: expired_at)
+ * **POST** - http://API-URL/api/v1/api_keys - create access_token (params: expires_at)
  * **PUT** - http://API-URL/api/v1/api_keys/{token} - change api_key {token} (params: active, expires_at)
  * **DELETE** - http://API-URL/api/v1/api_keys/{token} - delete access_token {token}
 
