@@ -11,7 +11,7 @@ module Posty
       
       desc "Creates a new API Key"
       post do
-        ApiKey.create
+        ApiKey.create(attributes_for_keys [ :expires_at ])
       end
       
       segment '/:api_key' do
@@ -23,7 +23,7 @@ module Posty
         desc "Update the specified api_key"
         put do
           return_on_success(current_api_key) do |api_key|
-            api_key.update_attributes(attributes_for_keys [ :access_token, :active, :expires_at ])
+            api_key.update_attributes(attributes_for_keys [ :active, :expires_at ])
           end
         end
       
