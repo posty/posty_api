@@ -65,10 +65,10 @@ Also available at [http://www.posty-soft.de/swagger/posty_api.html](http://www.p
 **Transports:**
 
  * **GET** - http://API-URL/api/v1/transports - get all transports
- * **GET** - http://API-URL/api/v1/transports/{domain} - get the transport for {domain}
+ * **GET** - http://API-URL/api/v1/transports/{name} - get the transport for {name}
  * **POST** - http://API-URL/api/v1/transports - create alias (params: name, destination)
- * **PUT** - http://API-URL/api/v1/transports/{domain} - change transport {domain} (params: name, destination)
- * **DELETE** - http://API-URL/api/v1/transports/{domain} - delete transport {domain}
+ * **PUT** - http://API-URL/api/v1/transports/{name} - change transport {name} (params: name, destination)
+ * **DELETE** - http://API-URL/api/v1/transports/{name} - delete transport {name}
  
 **ApiKeys:**
 
