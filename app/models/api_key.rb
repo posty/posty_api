@@ -2,6 +2,9 @@ class ApiKey < ActiveRecord::Base
   attr_accessible :access_token, :expires_at, :active, :application
   before_create :generate_access_token
 
+  validates :expires_at, :presence => true
+  validates :access_token, :uniqueness => true
+
   scope :active, lambda {where('expires_at > ? AND active = 1', Time.now)}
  
   private

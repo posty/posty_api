@@ -1,16 +1,15 @@
 source 'http://rubygems.org'
-ruby "1.9.3"
 
 group :default do
   gem 'rack', "~> 1.5.2"
-  gem 'rake', "~> 10.0.4"
-  gem 'grape', "~> 0.4.1"
-  gem 'activerecord', "~> 3.2.13", :require => "active_record"
-  gem 'json', '~> 1.7.7'
+  gem 'rake', "~> 10.3.2"
+  gem 'grape', "~> 0.7.0"
+  gem 'activerecord', "~> 3.2.18", :require => "active_record"
+  gem 'json', '~> 1.8.1'
   gem 'grape-swagger'
   gem 'rack-cors', :require => 'rack/cors'
-  gem 'mysql2', "~> 0.3.11"
-  gem "schema_plus", "~> 0.4.1"
+  gem 'mysql2', "~> 0.3.16"
+  gem "schema_plus", "~> 1.5.1"
 end
 
 group :test, :development do

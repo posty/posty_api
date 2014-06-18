@@ -1,4 +1,4 @@
-#posty_API
+#posty\_API
 
 The posty\_API is the core element of the posty softwarestack. It is developed to administrate a mailserver based on Postfix and Dovecot. It offers an easy REST interface which can be used in own applications or with the posty client applications, posty\_CLI and posty\_webUI.
 
@@ -24,7 +24,7 @@ Notice: Check your RACK_ENV if any problems occur.
 ## Usage
 
 Here is a short overview about the possible API REST calls.
-Also available at [http://www.posty-soft.de/swagger/posty_api.html](http://www.posty-soft.org/swagger/posty_api.html#!/api)
+Also available at [http://www.posty-soft.de/swaggerv2/posty_api.html](http://www.posty-soft.org/swaggerv2/posty_api.html#!/api)
 
 **Domains:**
 
@@ -91,6 +91,14 @@ You can run the tests by going to project root and run:
 For more informations about posty please visit our website:
 [www.posty-soft.org](http://www.posty-soft.org)
 
+## Support
+
+* IRC
+	* Server: irc.freenode.net
+	* Channel: #posty
+* Email:
+	* support@posty-soft.org
+
 ### Bug reports
 
 If you discover any bugs, feel free to create an issue on GitHub. Please add as much information as possible to help us fixing the possible bug. We also encourage you to help even more by forking and sending us a pull request.
@@ -101,4 +109,4 @@ LGPL v3 license. See LICENSE for details.
 
 ### Copyright
 
-All rights are at (C) [http://www.posty-soft.org](http://www.posty-soft.org) 2013
+All rights are at (C) [http://www.posty-soft.org](http://www.posty-soft.org) 2014
