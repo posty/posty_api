@@ -6,7 +6,7 @@ The posty\_API is the core element of the posty softwarestack. It is developed t
 
 You need a working ruby installation.
 
-Tested with ruby 1.9.3.
+Tested with ruby 1.9.3, 2.1.1, 2.1.2
 
 ## Installation
 
