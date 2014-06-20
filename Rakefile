@@ -1,13 +1,11 @@
 task :environment do
-  env = ENV["RACK_ENV"] ? ENV["RACK_ENV"] : "development"
   require File.expand_path('../config/environment', __FILE__)
-  
 end
 
 namespace :api_key do
   desc "Creates a new api key"
   task :generate => :environment do
-    ApiKey.create
+    ApiKey.create(:expires_at => Time.now + 100.years)
   end
 end
 
