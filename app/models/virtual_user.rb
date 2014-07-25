@@ -1,4 +1,4 @@
-require 'digest/md5'
+require 'digest/sha2'
 require 'folder'
 
 class VirtualUser < ActiveRecord::Base
@@ -10,7 +10,7 @@ class VirtualUser < ActiveRecord::Base
   validates :name, :uniqueness => {:scope => :virtual_domain_id}
   validates :name, :format => { :with => /^[a-z0-9\-\.]+$/, :message => "Please use a valid user name" }
   validates :name, :presence => true
-  validates :password, :presence => true, :length => { :minimum => 5, :maximum => 40 }
+  validates :password, :presence => true, :length => { :minimum => 5 }
   validates :virtual_domain_id, :presence => true
   #validate :name_unique
   
@@ -26,7 +26,7 @@ class VirtualUser < ActiveRecord::Base
   end
   
   def hash_password
-    self.password = Digest::MD5.hexdigest(self.password)
+    self.password = self.password.crypt("$6$#{SecureRandom.hex(10)}")
   end
     
   def get_folder(user = name)
