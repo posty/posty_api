@@ -53,7 +53,7 @@ module Posty
         @transport.save ? @transport : validation_error(@transport.errors)
       end
       
-      segment '/:transport_name', requirements: {transport_name: /[a-z0-9\-]{2,}\.[a-z0-9]{2,}/} do
+      segment '/:transport_name', requirements: {transport_name: /([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}/} do
         desc "Returns the information to the specified transport"
         get do
           current_transport
@@ -86,7 +86,7 @@ module Posty
         @domain.save ? @domain : validation_error(@domain.errors)
       end
       
-      segment '/:domain_name', requirements: {domain_name: /[a-z0-9\-]{2,}\.[a-z0-9]{2,}/} do 
+      segment '/:domain_name', requirements: {domain_name: /([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}/} do 
         desc "Returns the information to the specified domain"
         get do
           current_domain
@@ -181,7 +181,7 @@ module Posty
             @alias.save ? @alias : validation_error(@alias.errors)
           end
       
-          segment '/:alias_name', requirements: {alias_name: /[a-z0-9\-]{2,}\.[a-z0-9]{2,}/} do
+          segment '/:alias_name', requirements: {alias_name: /([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}/} do
             desc "Returns the information to the specified domain alias"
             get do
               current_domain_alias

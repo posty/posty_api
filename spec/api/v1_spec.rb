@@ -30,19 +30,19 @@ describe Posty::API do
       end
     end
     
-    describe "PUT /api/v1/transports/test.de name='example.com'" do
-      it "changes the transport name from test.de to example.com" do
-        put "/api/v1/transports/test.de", {"name" => "example.com"}
+    describe "PUT /api/v1/transports/test.de name='example.co.uk'" do
+      it "changes the transport name from test.de to example.co.uk" do
+        put "/api/v1/transports/test.de", {"name" => "example.co.uk"}
         expect(last_response.status).to eq(200)
-        expect(JSON.parse(last_response.body)["virtual_transport"]).to include("name" => "example.com")
+        expect(JSON.parse(last_response.body)["virtual_transport"]).to include("name" => "example.co.uk")
       end
     end
   
-    describe "DELETE /api/v1/transports/example.com" do
-      it "delete the transport example.com" do
-        delete "/api/v1/transports/example.com"
+    describe "DELETE /api/v1/transports/example.co.uk" do
+      it "delete the transport example.co.uk" do
+        delete "/api/v1/transports/example.co.uk"
         expect(last_response.status).to eq(200)
-        expect(JSON.parse(last_response.body)["virtual_transport"]).to include("name" => "example.com")
+        expect(JSON.parse(last_response.body)["virtual_transport"]).to include("name" => "example.co.uk")
       end
     end
   end    
