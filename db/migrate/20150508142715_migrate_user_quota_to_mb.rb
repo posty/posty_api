@@ -1,7 +1,7 @@
 class MigrateUserQuotaToMb < ActiveRecord::Migration
+  MEGABYTE = 1024.0 * 1024.0
+
   def self.up
-    MEGABYTE = 1024.0 * 1024.0
-    
     VirtualUser.all do |user|
       user.quota = user.quota / MEGABYTE
       user.save!
@@ -9,8 +9,6 @@ class MigrateUserQuotaToMb < ActiveRecord::Migration
   end
 
   def self.down
-    MEGABYTE = 1024.0 * 1024.0
-    
     VirtualUser.all do |user|
       user.quota = user.quota * MEGABYTE
       user.save!
