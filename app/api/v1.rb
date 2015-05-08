@@ -82,7 +82,7 @@ module Posty
       
       desc "Create new domain"
       post do
-        @domain = VirtualDomain.new(attributes_for_keys [ :name ])
+        @domain = VirtualDomain.new(attributes_for_keys [ :name, :quota ])
         @domain.save ? @domain : validation_error(@domain.errors)
       end
       
@@ -95,7 +95,7 @@ module Posty
         desc "Update the specified domain"
         put do
           return_on_success(current_domain) do |domain|
-            domain.update_attributes(attributes_for_keys [ :name ])
+            domain.update_attributes(attributes_for_keys [ :name, :quota ])
           end
         end
       
