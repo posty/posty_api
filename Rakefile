@@ -5,7 +5,7 @@ end
 namespace :api_key do
   desc "Creates a new api key"
   task :generate => :environment do
-    ApiKey.create(:expires_at => Time.now + 100.years)
+    puts ApiKey.create(:expires_at => Time.now + 100.years).access_token
   end
 end
 
