@@ -6,7 +6,7 @@ The posty\_API is the core element of the posty softwarestack. It is developed t
 
 You need a working ruby installation.
 
-Tested with ruby 1.9.3, 2.1.1, 2.1.2
+Tested with ruby 2.1.8, 2.2.4, 2.3.0
 
 ## Installation
 
@@ -57,11 +57,11 @@ Also available at [http://www.posty-soft.de/swaggerv2/posty_api.html](http://www
   * **POST** - http://API-URL/api/v1/domains/{domain}/aliases - create alias (params: name)
   * **PUT** - http://API-URL/api/v1/domains/{domain}/aliases/{name} - change alias @{name} (params: name)
   * **DELETE** - http://API-URL/api/v1/domains/{domain}/aliases/{name} - delete alias @{name}
-  
+
 **Summary:**
 
   * **GET** - http://API-URL/api/v1/summary - get the number of existing domains, users, domain aliases and user aliases
-  
+
 **Transports:**
 
  * **GET** - http://API-URL/api/v1/transports - get all transports
@@ -69,7 +69,7 @@ Also available at [http://www.posty-soft.de/swaggerv2/posty_api.html](http://www
  * **POST** - http://API-URL/api/v1/transports - create alias (params: name, destination)
  * **PUT** - http://API-URL/api/v1/transports/{name} - change transport {name} (params: name, destination)
  * **DELETE** - http://API-URL/api/v1/transports/{name} - delete transport {name}
- 
+
 **ApiKeys:**
 
  * **GET** - http://API-URL/api/v1/api_keys - get all api keys

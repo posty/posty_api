@@ -7,9 +7,9 @@ module Posty
     rescue_from :all
 
     helpers APIHelper
-    
+
     mount ::Posty::API_v1
 
-    add_swagger_documentation :mount_path => "v1/swagger_doc", :api_version => "v1"
+    add_swagger_documentation mount_path: 'v1/swagger_doc', api_version: 'v1'
   end
 end
