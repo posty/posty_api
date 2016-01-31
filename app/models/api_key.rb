@@ -5,7 +5,7 @@ class ApiKey < ActiveRecord::Base
   validates :expires_at, presence: true
   validates :access_token, uniqueness: true
 
-  scope :active, -> { where('expires_at > ? AND active = 1', Time.now) }
+  scope :active, -> { where('expires_at > ? AND active = ?', Time.now, true) }
 
   private
 

@@ -13,8 +13,8 @@ Tested with ruby 2.1.8, 2.2.4, 2.3.0
 1.  Download the source either using git or from the GitHub page as archive.
 2.  Extract the archive
 3.  Change directory to the extracted folder
-4.  Move config/database_default.yml to config/database.yml and change it to your needs.
-5.  Run ``bundle install``
+4.  Copy config/database.mysql2.yml or config/database.postgresql.yml to config/database.yml and change it to your needs.
+5.  Run ``bundle install --with mysql`` for MySQL or ``bundle install --with postgresql`` for PostgreSQL
 6.  Run ``rake db:migrate``
 7.  Run ``rake api_key:generate``
 8.  Start the application e.g. with ``rackup``
