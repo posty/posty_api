@@ -48,7 +48,7 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     mysql2 (0.3.20)
-    parser (2.3.0.1)
+    parser (2.3.0.2)
       ast (~> 2.2)
     powerpack (0.1.1)
     rack (1.5.5)
@@ -62,7 +62,7 @@ GEM
     racksh (1.0.0)
       rack (>= 1.0)
       rack-test (>= 0.5)
-    rainbow (2.0.0)
+    rainbow (2.1.0)
     rake (10.3.2)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
@@ -101,10 +101,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (~> 3.2.18)
+  activerecord (~> 3.2.22)
   grape (~> 0.7.0)
   grape-swagger
-  json (~> 1.8.1)
+  json
   mysql2 (~> 0.3.16)
   rack (~> 1.5.2)
   rack-cors
