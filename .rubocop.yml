@@ -1,0 +1,22 @@
+AllCops:
+  # Include gemspec and Rakefile
+  Include:
+    - config.ru
+    - Gemfile
+  Exclude:
+    - vendor/**/*
+    - db/schema.rb
+    - db/migrate/*
+
+
+LineLength:
+  Max: 135
+
+Style/FileName:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+ClassLength:
+  Max: 170

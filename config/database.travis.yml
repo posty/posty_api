@@ -1,0 +1,5 @@
+test:
+  adapter: mysql2
+  database: posty_api_test
+  username: travis
+  encoding: utf8
