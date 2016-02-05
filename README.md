@@ -1,4 +1,5 @@
 #posty\_API
+[![Build Status](https://travis-ci.org/posty/posty_api.svg?branch=master)](https://travis-ci.org/posty/posty_api)
 
 The posty\_API is the core element of the posty softwarestack. It is developed to administrate a mailserver based on Postfix and Dovecot. It offers an easy REST interface which can be used in own applications or with the posty client applications, posty\_CLI and posty\_webUI.
 
