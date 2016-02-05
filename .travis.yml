@@ -3,18 +3,27 @@ cache: bundler
 sudo: false
 services:
   - mysql
+  - postgresql
 
 rvm:
   - 2.1.8
   - 2.2.4
   - 2.3.0
 
+bundler_args: "--deployment --without development production --with mysql postgresql --jobs 3 --retry 3"
+
 before_script:
-  - mysql -e 'create database posty_api_test;'
-  - cp config/database.travis.yml config/database.yml
+  - sh -c "if [ '$DB' = 'mysql2' ]; then mysql -e 'create database posty_api_test;'; fi"
+  - sh -c "if [ '$DB' = 'mysql2' ]; then cp config/database.travis.mysql2.yml config/database.yml; fi"
+  - sh -c "if [ '$DB' = 'postgresql' ]; then psql -c 'create database posty_api_test;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'postgresql' ]; then cp config/database.travis.postgresql.yml config/database.yml; fi"
   - bundle exec rake db:migrate
   - bundle exec rake api_key:generate
 
 script:
   - bundle exec rake spec
   - bundle exec rubocop
+
+env:
+  - DB=mysql2
+  - DB=postgresql
