@@ -20,20 +20,20 @@ end
 namespace :db do
   desc 'Migrate the database through scripts in db/migrate'
   task(migrate: :environment) do
-    ActiveRecord::Migrator.migrate('db/migrate', ENV['VERSION'] ? ENV['VERSION'].to_i : nil)
+    ActiveRecord::Migrator.migrate('db/migrate', ENV['VERSION'].try(:to_i))
     Rake::Task['db:schema:dump'].invoke if ActiveRecord::Base.schema_format == :ruby
   end
 
   namespace :migrate do
     desc 'Runs the "down" for a given migration VERSION'
     task(down: :environment) do
-      ActiveRecord::Migrator.down('db/migrate', ENV['VERSION'] ? ENV['VERSION'].to_i : nil)
+      ActiveRecord::Migrator.down('db/migrate', ENV['VERSION'].try(:to_i))
       Rake::Task['db:schema:dump'].invoke if ActiveRecord::Base.schema_format == :ruby
     end
 
     desc 'Runs the "up" for a given migration VERSION'
     task(up: :environment) do
-      ActiveRecord::Migrator.up('db/migrate', ENV['VERSION'] ? ENV['VERSION'].to_i : nil)
+      ActiveRecord::Migrator.up('db/migrate', ENV['VERSION'].try(:to_i))
       Rake::Task['db:schema:dump'].invoke if ActiveRecord::Base.schema_format == :ruby
     end
 

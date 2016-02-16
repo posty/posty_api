@@ -5,7 +5,7 @@ class AddViews < ActiveRecord::Migration
   end
 
   def self.down
-    drop_view :users_view
-    drop_view :aliases_view
+    drop_view :users_view, if_exists: true
+    drop_view :aliases_view, if_exists: true
   end
 end

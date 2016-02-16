@@ -5,13 +5,13 @@ class VirtualUserAlias < ActiveRecord::Base
   validates :name, uniqueness: { scope: :virtual_user_id }
 
   validates :name, presence: true
-  validates :name, format: { with: /^[a-z0-9\-\.]+$/, message: 'Please use a valid source' }
+  validates :name, format: { with: /\A[a-z0-9\-\.]+\z/, message: 'Please use a valid source' }
   validates :virtual_user_id, presence: true
   # validate :name_unique
 
   def name_unique
-    if VirtualUser.where('name = ? and virtual_domain_id = ?', name, virtual_domain_id).exists?
-      errors[:source] << 'A account with this address already exist'
-    end
+    return unless VirtualUser.where(name: name, virtual_domain_id: virtual_domain_id).exists?
+
+    errors[:source] << 'A account with this address already exist'
   end
 end

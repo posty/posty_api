@@ -9,6 +9,6 @@ class CreateVirtualAliases < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :virtual_aliases
+    drop_table :virtual_aliases if table_exists? :virtual_aliases
   end
 end

@@ -8,19 +8,19 @@ class VirtualDomain < ActiveRecord::Base
 
   validates :name, uniqueness: true
   validates :name, presence: true
-  validates :name, format: { with: /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/, message: 'Please use a valid domain name' }
+  validates :name, format: { with: /\A([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\z/, message: 'Please use a valid domain name' }
   validate :name_unique
 
   after_update :move_folder, if: :name_changed?
   after_destroy :remove_folder
 
   def name_unique
-    return unless VirtualDomainAlias.where('name = ?', name).exists?
+    return unless VirtualDomainAlias.where(name: name).exists?
 
     errors[:name] << 'A domain alias with this name already exists'
   end
 
   def get_folder(domain = name)
-    MAIL_ROOT_FOLDER + '/' + domain
+    File.join MAIL_ROOT_FOLDER, domain
   end
 end

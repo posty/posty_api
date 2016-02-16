@@ -8,7 +8,7 @@ class VirtualUser < ActiveRecord::Base
   has_many :virtual_user_aliases, dependent: :destroy
 
   validates :name, uniqueness: { scope: :virtual_domain_id }
-  validates :name, format: { with: /^[a-z0-9\-\.]+$/, message: 'Please use a valid user name' }
+  validates :name, format: { with: /\A[a-z0-9\-\.]+\z/, message: 'Please use a valid user name' }
   validates :name, presence: true
   validates :password, presence: true, length: { minimum: 5 }
   validates :virtual_domain_id, presence: true
@@ -21,9 +21,9 @@ class VirtualUser < ActiveRecord::Base
 
   # TODO: fix name_unique virtual_domain_id is not present
   def name_unique
-    if VirtualUserAlias.where('name = ? and virtual_domain_id = ?', name, virtual_domain.id).exists?
-      errors[:email] << 'A alias with this address already exist'
-    end
+    return unless VirtualUserAlias.where(name: name, virtual_domain_id: virtual_domain.id).exists?
+
+    errors[:email] << 'A alias with this address already exist'
   end
 
   def hash_password
@@ -31,20 +31,20 @@ class VirtualUser < ActiveRecord::Base
   end
 
   def get_folder(user = name)
-    MAIL_ROOT_FOLDER + '/' + virtual_domain.name + '/' + user
+    File.join MAIL_ROOT_FOLDER, virtual_domain.name, user
   end
 
   def create_folder
-    complete_path = get_folder + '/' + STORAGE_CLASS
+    complete_path = File.join get_folder, STORAGE_CLASS
     folder_array = complete_path.gsub(MAIL_ROOT_FOLDER + '/', '').split('/')
 
-    if ENV['RACK_ENV'] == 'production'
-      if File.directory?(get_folder)
-        error!('A folder with this name already exists.', 400)
-      else
-        FileUtils.mkdir_p complete_path
-        change_permissions(folder_array)
-      end
+    return if ENV['RACK_ENV'] != 'production'
+
+    if File.directory?(get_folder)
+      error!('A folder with this name already exists.', 400)
+    else
+      FileUtils.mkdir_p complete_path
+      change_permissions(folder_array)
     end
   end
 end

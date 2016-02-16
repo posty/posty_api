@@ -21,6 +21,7 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     builder (3.0.4)
+    coderay (1.1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     descendants_tracker (0.0.4)
@@ -47,6 +48,7 @@ GEM
     i18n (0.7.0)
     ice_nine (0.11.2)
     json (1.8.3)
+    method_source (0.8.2)
     multi_json (1.11.2)
     multi_xml (0.5.5)
     mysql2 (0.3.20)
@@ -54,6 +56,10 @@ GEM
       ast (~> 2.2)
     pg (0.18.4)
     powerpack (0.1.1)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     rack (1.5.5)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -86,11 +92,12 @@ GEM
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.7)
     ruby-progressbar (1.7.5)
-    schema_plus (1.5.3)
-      activerecord (>= 3.2)
+    schema_plus (1.8.9)
+      activerecord (>= 3.2, <= 4.2.0)
       valuable
     shotgun (0.9.1)
       rack (>= 1.0)
+    slop (3.6.0)
     thread_safe (0.3.5)
     tzinfo (0.3.46)
     valuable (0.9.10)
@@ -106,19 +113,20 @@ PLATFORMS
 DEPENDENCIES
   activerecord (~> 3.2.22)
   activerecord-postgresql-adapter
-  grape (~> 0.7.0)
+  grape
   grape-swagger
   json
-  mysql2 (~> 0.3.16)
-  pg (~> 0.18.4)
-  rack (~> 1.5.2)
+  mysql2
+  pg
+  pry
+  rack
   rack-cors
   rack-test
   racksh
-  rake (~> 10.3.2)
+  rake
   rspec
   rubocop
-  schema_plus (~> 1.5.1)
+  schema_plus
   shotgun
 
 BUNDLED WITH
