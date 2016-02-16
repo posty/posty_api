@@ -6,12 +6,12 @@ module Folder
   STORAGE_CLASS = 'mdbox/storage'.freeze # Possible values "mdbox", "Maildir", "mbox"
 
   def move_folder
-    if ENV['RACK_ENV'] == 'production'
-      if File.directory?(get_folder(name_change.last))
-        error!('A folder with this name already exists.', 400)
-      else
-        FileUtils.mv get_folder(name_change.first), get_folder(name_change.last)
-      end
+    return if ENV['RACK_ENV'] != 'production'
+
+    if File.directory?(get_folder(name_change.last))
+      error!('A folder with this name already exists.', 400)
+    else
+      FileUtils.mv get_folder(name_change.first), get_folder(name_change.last)
     end
   end
 
@@ -23,7 +23,7 @@ module Folder
     current_folder = ''
     folder_array.each do |folder|
       current_folder += folder + '/'
-      FileUtils.chown MAIL_USER, MAIL_GROUP, MAIL_ROOT_FOLDER + '/' + current_folder
+      FileUtils.chown MAIL_USER, MAIL_GROUP, File.join(MAIL_ROOT_FOLDER, current_folder)
     end
   end
 end

@@ -1,19 +1,19 @@
 production:
- adapter: postgresql
- encoding: utf8
- reconnect: false
- database: database_name
- pool: 5
- username: database_user_name
- password: database_user_password
- host: localhost
+  adapter: postgresql
+  encoding: utf8
+  reconnect: false
+  database: database_name
+  pool: 5
+  username: database_user_name
+  password: database_user_password
+  host: localhost
 
 development:
- adapter: postgresql
- encoding: utf8
- reconnect: false
- database: database_name
- pool: 5
- username: database_user_name
- password: database_user_password
- host: localhost
+  adapter: postgresql
+  encoding: utf8
+  reconnect: false
+  database: database_name
+  pool: 5
+  username: database_user_name
+  password: database_user_password
+  host: localhost

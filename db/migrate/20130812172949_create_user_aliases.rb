@@ -3,11 +3,11 @@ class CreateUserAliases < ActiveRecord::Migration
     create_table :virtual_user_aliases do |t|
       t.integer :virtual_user_id
       t.string :name
-      t.timestamps
+      t.timestamps null: false
     end
-    
-    drop_view  :aliases_view
-    drop_table :virtual_aliases
+
+    drop_view  :aliases_view if table_exists? :aliases_view
+    drop_table :virtual_aliases if table_exists? :virtual_aliases
   end
 
   def self.down

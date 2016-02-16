@@ -1,26 +1,26 @@
 #posty\_API
 [![Build Status](https://travis-ci.org/posty/posty_api.svg?branch=master)](https://travis-ci.org/posty/posty_api)
 
-The posty\_API is the core element of the posty softwarestack. It is developed to administrate a mailserver based on Postfix and Dovecot. It offers an easy REST interface which can be used in own applications or with the posty client applications, posty\_CLI and posty\_webUI.
+The posty\_API is the core element of the posty softwarestack. It is developed to administrate a mailserver based on [Postfix](http://www.postfix.org/) and [Dovecot](http://www.dovecot.org/). It offers an easy REST interface which can be used in own applications or with the posty client applications, [posty\_CLI](https://github.com/iaddict/posty_client) and [posty\_webUI](https://github.com/posty/posty_webui).
 
 ## Requirements
 
-You need a working ruby installation.
+You need a working [ruby installation](https://www.ruby-lang.org/en/documentation/installation/).
 
 Tested with ruby 2.1.8, 2.2.4, 2.3.0
 
 ## Installation
 
-1.  Download the source either using git or from the GitHub page as archive.
-2.  Extract the archive
+1.  Download the source either using git or from the GitHub page as [archive](https://github.com/posty/posty_api/archive/master.zip).
+2.  Extract the archive if necessary
 3.  Change directory to the extracted folder
-4.  Copy config/database.mysql2.yml or config/database.postgresql.yml to config/database.yml and change it to your needs.
-5.  Run ``bundle install --with mysql`` for MySQL or ``bundle install --with postgresql`` for PostgreSQL
+4.  Copy `config/database.mysql2.yml` or `config/database.postgresql.yml` to `config/database.yml` and change it to your needs.
+5.  Run ``bundle install --with mysql --without postgresql`` for MySQL or ``bundle install --with postgresql --without mysql`` for PostgreSQL
 6.  Run ``rake db:migrate``
 7.  Run ``rake api_key:generate``
 8.  Start the application e.g. with ``rackup``
 
-Notice: Check your RACK_ENV if any problems occur.
+Notice: Check your `RACK_ENV` if any problems occur.
 
 ## Usage
 
@@ -100,12 +100,12 @@ For more informations about posty please visit our website:
 
 ### Bug reports
 
-If you discover any bugs, feel free to create an issue on GitHub. Please add as much information as possible to help us fixing the possible bug. We also encourage you to help even more by forking and sending us a pull request.
+If you discover any bugs, feel free to [create an issue on GitHub](https://github.com/posty/posty_api/issues/new). Please add as much information as possible to help us fixing the possible bug. We also encourage you to help even more by forking and sending us a pull request.
 
 ### License
 
-LGPL v3 license. See LICENSE for details.
+LGPL v3 license. See [LICENSE](LICENSE) for details.
 
 ### Copyright
 
-All rights are at (C) [http://www.posty-soft.org](http://www.posty-soft.org) 2014
+All rights are at (C) [http://www.posty-soft.org](http://www.posty-soft.org) 2014 - 2016

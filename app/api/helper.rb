@@ -24,13 +24,10 @@ module Posty
 
     # rubocop:disable Metrics/LineLength
     def get_summary(entitys = { 'VirtualDomains' => 'Domains', 'VirtualUsers' => 'Users', 'VirtualUserAliases' => 'User Aliases', 'VirtualDomainAliases' => 'Domain Aliases' })
-      summary = []
 
-      entitys.sort.each do |clazz, name|
-        summary << { 'name' => name, 'count' => clazz.classify.constantize.all.count }
+      entitys.sort.map do |clazz, name|
+        { 'name' => name, 'count' => clazz.classify.constantize.all.count }
       end
-
-      summary
     end
     # rubocop:enable Metrics/LineLength
 
@@ -40,6 +37,8 @@ module Posty
 
     def current_session
       auth_token = params[:auth_token] || env['HTTP_AUTH_TOKEN']
+      error!('Unauthorized. Token is empty.', 401) if auth_token.blank?
+
       @current_session ||= ApiKey.active.where(access_token: auth_token).first
     end
 
