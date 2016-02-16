@@ -6,7 +6,7 @@ class CreateUserAliases < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    drop_view  :aliases_view if table_exists? :aliases_view
+    drop_view  :aliases_view, if_exists: true
     drop_table :virtual_aliases if table_exists? :virtual_aliases
   end
 

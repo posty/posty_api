@@ -24,7 +24,6 @@ module Posty
 
     # rubocop:disable Metrics/LineLength
     def get_summary(entitys = { 'VirtualDomains' => 'Domains', 'VirtualUsers' => 'Users', 'VirtualUserAliases' => 'User Aliases', 'VirtualDomainAliases' => 'Domain Aliases' })
-
       entitys.sort.map do |clazz, name|
         { 'name' => name, 'count' => clazz.classify.constantize.all.count }
       end

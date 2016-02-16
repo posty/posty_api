@@ -4,6 +4,6 @@ class AddDomainAliasesViews < ActiveRecord::Migration
   end
 
   def self.down
-    drop_view :domain_aliases_view
+    drop_view :domain_aliases_view, if_exists: true
   end
 end
