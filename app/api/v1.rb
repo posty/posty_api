@@ -116,7 +116,7 @@ module Posty
             @user.save ? @user : validation_error(@user.errors)
           end
 
-          segment '/:user_name', requirements: { user_name: /[a-z0-9\-\.]+/ } do
+          segment '/:user_name', requirements: { user_name: /[a-z0-9\-\.\_]+/ } do
             desc 'Returns the information to the specified user'
             get do
               current_user
@@ -146,7 +146,7 @@ module Posty
                 @alias.save ? @alias : validation_error(@alias.errors)
               end
 
-              segment '/:alias_name', requirements: { alias_name: /[a-z0-9\-\.]+/ } do
+              segment '/:alias_name', requirements: { alias_name: /[a-z0-9\-\.\_]+/ } do
                 desc 'Returns the information to the specified user alias'
                 get do
                   current_user_alias
