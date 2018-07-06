@@ -50,6 +50,7 @@ namespace :db do
   end
 
   namespace :schema do
+    desc 'Dump schema'
     task dump: :environment do
       require 'active_record/schema_dumper'
       File.open(ENV['SCHEMA'] || 'db/schema.rb', 'w') do |file|
