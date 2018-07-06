@@ -1,12 +1,15 @@
 source 'http://rubygems.org'
 
-gem 'rack'
 gem 'rake'
+
 gem 'mysql2', '< 0.5', require: true
-gem 'activerecord', require: 'active_record'
+gem 'activerecord', '~> 4.2', require: 'active_record'
 gem 'protected_attributes' # FIXME: remove soon
+
 gem 'json'
-gem 'grape', '~> 0.7.0'
+
+gem 'rack'
+gem 'grape'
 gem 'grape-swagger'
 gem 'rack-cors', require: 'rack/cors'
 

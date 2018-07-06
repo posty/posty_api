@@ -15,7 +15,6 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.4)
     ast (2.4.0)
-    awesome_print (1.8.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -28,32 +27,24 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.3)
     equalizer (0.0.11)
-    grape (0.7.0)
+    grape (1.0.3)
       activesupport
       builder
-      hashie (>= 1.2.0)
-      multi_json (>= 1.3.2)
-      multi_xml (>= 0.5.2)
+      mustermann-grape (~> 1.0.0)
       rack (>= 1.3.0)
       rack-accept
-      rack-mount
       virtus (>= 1.0.0)
-    grape-entity (0.7.1)
-      activesupport (>= 4.0)
-      multi_json (>= 1.3.2)
-    grape-swagger (0.20.0)
-      awesome_print
-      grape
-      grape-entity
-    hashie (3.5.7)
+    grape-swagger (0.29.0)
+      grape (>= 0.16.2)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     jaro_winkler (1.5.1)
     json (2.1.0)
     minitest (5.11.3)
-    multi_json (1.13.1)
-    multi_xml (0.6.0)
+    mustermann (1.0.2)
+    mustermann-grape (1.0.0)
+      mustermann (~> 1.0.0)
     mysql2 (0.4.10)
     parallel (1.12.1)
     parser (2.5.1.0)
@@ -65,8 +56,6 @@ GEM
     rack-accept (0.4.5)
       rack (>= 0.4)
     rack-cors (1.0.2)
-    rack-mount (0.8.3)
-      rack (>= 1.0.0)
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
     racksh (1.0.0)
@@ -112,8 +101,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord
-  grape (~> 0.7.0)
+  activerecord (~> 4.2)
+  grape
   grape-swagger
   json
   mysql2 (< 0.5)

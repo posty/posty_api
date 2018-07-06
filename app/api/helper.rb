@@ -92,7 +92,7 @@ module Posty
     end
 
     def validation_error(errors)
-      error!(errors, 400)
+      error!({error: errors.to_hash}, 400)
     end
   end
 end
