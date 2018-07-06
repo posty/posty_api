@@ -19,5 +19,6 @@ group :test, :development do
   gem 'shotgun'
   gem 'racksh'
   gem 'rubocop'
+  gem 'pry'
 end
 
