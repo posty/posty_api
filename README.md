@@ -1,13 +1,13 @@
 #posty\_API
 [![Build Status](https://travis-ci.org/posty/posty_api.svg?branch=master)](https://travis-ci.org/posty/posty_api)
 
-The posty\_API is the core element of the posty softwarestack. It is developed to administrate a mailserver based on Postfix and Dovecot. It offers an easy REST interface which can be used in own applications or with the posty client applications, posty\_CLI and posty\_webUI.
+The posty\_API is the core element of the posty software stack. It is developed to administrate a mailserver based on Postfix and Dovecot. It offers an easy REST interface which can be used in own applications or with the posty client applications, posty\_CLI and posty\_webUI.
 
 ## Requirements
 
 You need a working ruby installation.
 
-Tested with ruby 2.1.8, 2.2.4, 2.3.0
+Tested with ruby 2.5.1
 
 ## Installation
 
@@ -15,17 +15,28 @@ Tested with ruby 2.1.8, 2.2.4, 2.3.0
 2.  Extract the archive
 3.  Change directory to the extracted folder
 4.  Copy config/database.mysql2.yml or config/database.postgresql.yml to config/database.yml and change it to your needs.
-5.  Run ``bundle install --with mysql`` for MySQL or ``bundle install --with postgresql`` for PostgreSQL
+5.  Run ``bundle install``
 6.  Run ``rake db:migrate``
 7.  Run ``rake api_key:generate``
 8.  Start the application e.g. with ``rackup``
 
-Notice: Check your RACK_ENV if any problems occur.
+Note: Check your RACK_ENV if any problems occur.
 
 ## Usage
 
-Here is a short overview about the possible API REST calls.
-Also available at [http://www.posty-soft.de/swaggerv2/posty_api.html](http://www.posty-soft.org/swaggerv2/posty_api.html#!/api)
+Following a short overview of the supported REST API calls.
+To try it just use curl:
+
+    $ curl -v -H 'AUTH_TOKEN: 709971592fb44e8d09e9d93f8xb2c956' http://localhost:9292/api/v1/domains
+    $ curl -v -H 'AUTH_TOKEN: 709971592fb44e8d09e9d93f8xb2c956' http://localhost:9292/api/v1/domains/test.de
+    $ curl -v -H 'AUTH_TOKEN: 709971592fb44e8d09e9d93f8xb2c956' http://localhost:9292/api/v1/domains/webflow.eu
+
+The AUTH_TOKEN header value is the one you created with the api_key:generate task.
+
+There is also a swagger documentation endpoint:
+http://localhost:9292/api/v1/swagger_doc
+
+Try it here: https://inspector.swagger.io/builder
 
 **Domains:**
 
@@ -79,8 +90,6 @@ Also available at [http://www.posty-soft.de/swaggerv2/posty_api.html](http://www
  * **PUT** - http://API-URL/api/v1/api_keys/{token} - change api_key {token} (params: active, expires_at)
  * **DELETE** - http://API-URL/api/v1/api_keys/{token} - delete access_token {token}
 
-
-:access_token :active :expires_at
 
 ## Test
 
