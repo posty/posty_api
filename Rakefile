@@ -10,6 +10,10 @@ task :environment do
   require File.expand_path('../config/environment', __FILE__)
 end
 
+task routes: :environment do
+  pp Posty::API.routes
+end
+
 namespace :api_key do
   desc 'Creates a new api key'
   task generate: :environment do
