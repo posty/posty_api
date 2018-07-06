@@ -6,7 +6,7 @@ class CreateUserAliases < ActiveRecord::Migration
       t.timestamps
     end
     
-    drop_view  :aliases_view
+    ActiveRecord::Base.connection.execute('drop view  aliases_view')
     drop_table :virtual_aliases
   end
 

@@ -7,6 +7,9 @@ require 'uri'
 require 'erb'
 
 Bundler.require :default, ENV['RACK_ENV']
+require 'mysql2'
+
+ActiveRecord::Base.include_root_in_json = true
 
 dbconfig = YAML.load(ERB.new(File.read(Dir.pwd + '/config/database.yml')).result)
 ActiveRecord::Base.establish_connection(dbconfig[ENV['RACK_ENV']])

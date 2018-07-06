@@ -5,7 +5,7 @@ class VirtualUserAlias < ActiveRecord::Base
   validates :name, uniqueness: { scope: :virtual_user_id }
 
   validates :name, presence: true
-  validates :name, format: { with: /^[a-z0-9\-\.\_]+$/, message: 'Please use a valid source' }
+  validates :name, format: { with: /\A[a-z0-9\-\.\_]+\z/, message: 'Please use a valid source' }
   validates :virtual_user_id, presence: true
   # validate :name_unique
 

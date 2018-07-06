@@ -8,7 +8,7 @@ class VirtualUser < ActiveRecord::Base
   has_many :virtual_user_aliases, dependent: :destroy
 
   validates :name, uniqueness: { scope: :virtual_domain_id }
-  validates :name, format: { with: /^[a-z0-9\-\.\_]+$/, message: 'Please use a valid user name' }
+  validates :name, format: { with: /\A[a-z0-9\-\.\_]+\z/, message: 'Please use a valid user name' }
   validates :name, presence: true
   validates :password, presence: true, length: { minimum: 5 }
   validates :virtual_domain_id, presence: true
